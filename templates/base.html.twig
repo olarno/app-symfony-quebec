@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Symfony Québec{% endblock %}</title>
+        <meta name="description" content="{% block meta_description %}Symfony Québec organise, facilite et promeut la présence de Symfony au Québec et au Canada : meetups, conférences, cercle de professionnels.{% endblock %}">
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        {% set route = app.current_route %}
+        <header class="site-header">
+            <div class="container site-header__inner">
+                <a class="brand" href="{{ path('app_home') }}">
+                    <span class="brand__logo" aria-hidden="true">sf</span>
+                    <span class="brand__name">Symfony <strong>Québec</strong></span>
+                </a>
+                <nav class="site-nav" aria-label="Navigation principale">
+                    <a href="{{ path('app_event_index') }}" {{ route starts with 'app_event' ? 'aria-current="page"' }}>Événements</a>
+                    <a href="{{ path('app_sponsor_index') }}" {{ route == 'app_sponsor_index' ? 'aria-current="page"' }}>Commanditaires</a>
+                    <a href="{{ path('app_team_index') }}" {{ route == 'app_team_index' ? 'aria-current="page"' }}>Équipe</a>
+                    <a href="{{ path('app_apps_index') }}" {{ route == 'app_apps_index' ? 'aria-current="page"' }}>Nos applications</a>
+                    <a class="button button--small" href="{{ path('app_contact') }}" {{ route == 'app_contact' ? 'aria-current="page"' }}>Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            {% for type, messages in app.flashes %}
+                <div class="container">
+                    {% for message in messages %}
+                        <p class="flash flash--{{ type }}" role="status">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            {% block body %}{% endblock %}
+        </main>
+
+        <footer class="site-footer">
+            <div class="container site-footer__inner">
+                <div>
+                    <p class="brand__name">Symfony <strong>Québec</strong></p>
+                    <p class="muted">Organiser, faciliter et promouvoir Symfony au Québec et au Canada.</p>
+                </div>
+                <ul class="site-footer__links">
+                    <li><a href="{{ path('app_event_index') }}">Événements</a></li>
+                    <li><a href="{{ path('app_sponsor_index') }}">Devenir commanditaire</a></li>
+                    <li><a href="{{ map_url }}" rel="noopener" target="_blank">Carte interactive</a></li>
+                    <li><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></li>
+                </ul>
+            </div>
+            <div class="container">
+                <p class="muted small">© {{ 'now'|date('Y') }} Symfony Québec — communauté indépendante. Symfony est une marque déposée de Symfony SAS.</p>
+            </div>
+        </footer>
+    </body>
+</html>

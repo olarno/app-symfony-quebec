@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos applications — {{ parent() }}{% endblock %}
+
+{% block body %}
+    <section class="page-header">
+        <div class="container">
+            <h1>Nos applications</h1>
+            <p class="lead">Des outils construits par et pour la communauté Symfony d'ici.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="grid grid--apps">
+                <article class="card app-card">
+                    <p class="eyebrow">Carte interactive</p>
+                    <h2>Qui fait du Symfony au Québec et au Canada?</h2>
+                    <p>
+                        Une carte des développeurs, développeuses et entreprises qui utilisent et soutiennent
+                        Symfony. Trouvez des talents, des partenaires ou des employeurs près de chez vous,
+                        et ajoutez-vous à la carte!
+                    </p>
+                    <a class="button" href="{{ map_url }}" rel="noopener" target="_blank">Ouvrir la carte interactive</a>
+                </article>
+                <article class="card app-card app-card--soon">
+                    <p class="eyebrow">Bientôt</p>
+                    <h2>D'autres outils à venir</h2>
+                    <p>Une idée d'application utile à la communauté? Proposez-la-nous.</p>
+                    <a class="button button--ghost" href="{{ path('app_contact', {sujet: 'autre'}) }}">Proposer une idée</a>
+                </article>
+            </div>
+        </div>
+    </section>
+{% endblock %}

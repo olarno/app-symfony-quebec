@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}L'équipe — {{ parent() }}{% endblock %}
+
+{% block body %}
+    <section class="page-header">
+        <div class="container">
+            <h1>L'équipe</h1>
+            <p class="lead">Des développeurs et développeuses passionnés qui bâtissent la communauté Symfony au Québec et au Canada, bénévolement.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="grid grid--team">
+                {% for member in members %}
+                    <article class="card member">
+                        {% if member.photoPath %}
+                            <img class="member__photo" src="{{ member.photoPath }}" alt="{{ member.name }}">
+                        {% else %}
+                            <span class="member__photo member__photo--initials" aria-hidden="true">{{ member.initials }}</span>
+                        {% endif %}
+                        <h3>{{ member.name }}</h3>
+                        <p class="member__role">{{ member.role }}</p>
+                        {% if member.speaker %}<p class="tag tag--conference">Conférencier·ère</p>{% endif %}
+                        <p>{{ member.bio }}</p>
+                        <p class="member__links">
+                            {% if member.linkedinUrl %}<a href="{{ member.linkedinUrl }}" rel="noopener" target="_blank">LinkedIn</a>{% endif %}
+                            {% if member.githubUrl %}<a href="{{ member.githubUrl }}" rel="noopener" target="_blank">GitHub</a>{% endif %}
+                        </p>
+                    </article>
+                {% else %}
+                    <p class="empty">L'équipe sera présentée très bientôt.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--cta">
+        <div class="container">
+            <h2>Envie de vous impliquer?</h2>
+            <p>Organisation de meetups, conférences, communication : toutes les bonnes volontés sont les bienvenues.</p>
+            <a class="button" href="{{ path('app_contact', {sujet: 'autre'}) }}">Rejoindre l'équipe</a>
+        </div>
+    </section>
+{% endblock %}

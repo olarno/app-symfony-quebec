@@ -1,0 +1,11 @@
+<article class="card event-card{{ event.upcoming ? '' : ' event-card--past' }}">
+    <div class="event-card__date">
+        <span class="event-card__day">{{ event.startsAt|format_date(pattern: 'd', locale: 'fr') }}</span>
+        <span class="event-card__month">{{ event.startsAt|format_date(pattern: 'MMM yyyy', locale: 'fr') }}</span>
+    </div>
+    <div class="event-card__body">
+        <p class="tag tag--{{ event.type.value }}">{{ event.type.label }}</p>
+        <h3><a href="{{ path('app_event_show', {slug: event.slug}) }}">{{ event.title }}</a></h3>
+        <p class="muted">{{ event.online ? 'En ligne' : event.city }}</p>
+    </div>
+</article>

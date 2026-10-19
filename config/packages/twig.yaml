@@ -1,0 +1,10 @@
+twig:
+    file_name_pattern: '*.twig'
+    form_themes: ['form/theme.html.twig']
+    globals:
+        map_url: '%env(APP_MAP_URL)%'
+        contact_email: '%env(APP_CONTACT_EMAIL)%'
+
+when@test:
+    twig:
+        strict_variables: true

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Événements — {{ parent() }}{% endblock %}
+
+{% block body %}
+    <section class="page-header">
+        <div class="container">
+            <h1>Événements</h1>
+            <p class="lead">Meetups, ateliers, conférences et rencontres du cercle de professionnels.</p>
+            <a class="button button--ghost" href="{{ path('app_contact', {sujet: 'evenement'}) }}">Proposer ou accueillir un événement</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>À venir</h2>
+            {{ include('_partials/event_list.html.twig', {events: upcoming_events, empty_message: 'Aucun événement planifié pour le moment — revenez bientôt!'}) }}
+
+            <h2 class="section__subtitle">Passés</h2>
+            {{ include('_partials/event_list.html.twig', {events: past_events, empty_message: 'Aucun événement passé.'}) }}
+        </div>
+    </section>
+{% endblock %}

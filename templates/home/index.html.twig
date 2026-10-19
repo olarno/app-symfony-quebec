@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="hero">
+        <div class="container">
+            <p class="eyebrow">Communauté Symfony · Québec &amp; Canada</p>
+            <h1>Faire grandir Symfony<br>au Québec et au Canada</h1>
+            <p class="lead">
+                Symfony Québec organise, facilite et promeut la présence de Symfony ici :
+                meetups, conférences, cercle de professionnels et mise en relation entre
+                développeurs, entreprises et organisations.
+            </p>
+            <div class="actions">
+                <a class="button" href="{{ path('app_event_index') }}">Voir les événements</a>
+                <a class="button button--ghost" href="{{ map_url }}" rel="noopener" target="_blank">Explorer la carte interactive</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>Ce que nous faisons</h2>
+            <div class="grid grid--pillars">
+                <article class="card pillar">
+                    <h3>Meetups</h3>
+                    <p>Des rencontres régulières à Montréal, Québec et en ligne pour partager, apprendre et réseauter.</p>
+                </article>
+                <article class="card pillar">
+                    <h3>Conférences</h3>
+                    <p>Nos conférenciers interviennent dans vos événements, entreprises et écoles sur l'écosystème Symfony.</p>
+                    <a href="{{ path('app_contact', {sujet: 'conference'}) }}">Inviter un conférencier →</a>
+                </article>
+                <article class="card pillar">
+                    <h3>Cercle de professionnels</h3>
+                    <p>Un réseau d'experts pour accompagner vos équipes : architecture, migration, qualité, recrutement.</p>
+                    <a href="{{ path('app_contact', {sujet: 'expertise'}) }}">Demander un accompagnement →</a>
+                </article>
+                <article class="card pillar">
+                    <h3>Carte de la communauté</h3>
+                    <p>Repérez les développeurs et entreprises qui utilisent et soutiennent Symfony au Québec et au Canada.</p>
+                    <a href="{{ map_url }}" rel="noopener" target="_blank">Ouvrir la carte →</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--alt">
+        <div class="container">
+            <div class="section__header">
+                <h2>Événements à venir</h2>
+                <a href="{{ path('app_event_index') }}">Tous les événements →</a>
+            </div>
+            {{ include('_partials/event_list.html.twig', {events: upcoming_events, empty_message: 'Aucun événement planifié pour le moment — revenez bientôt!'}) }}
+
+            <h2 class="section__subtitle">Événements passés</h2>
+            {{ include('_partials/event_list.html.twig', {events: past_events, empty_message: 'Notre premier événement arrive bientôt.'}) }}
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section__header">
+                <h2>Ils nous soutiennent</h2>
+                <a href="{{ path('app_sponsor_index') }}">Devenir commanditaire →</a>
+            </div>
+            {{ include('_partials/sponsor_groups.html.twig') }}
+        </div>
+    </section>
+
+    <section class="section section--cta">
+        <div class="container">
+            <h2>Un projet, une idée d'événement, un besoin d'expertise?</h2>
+            <p>Parlons-en : nous mettons en relation la communauté Symfony d'ici.</p>
+            <a class="button" href="{{ path('app_contact') }}">Nous écrire</a>
+        </div>
+    </section>
+{% endblock %}

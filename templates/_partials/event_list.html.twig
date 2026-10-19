@@ -1,0 +1,9 @@
+{% if events is empty %}
+    <p class="empty">{{ empty_message }}</p>
+{% else %}
+    <div class="grid grid--events">
+        {% for event in events %}
+            {{ include('_partials/event_card.html.twig') }}
+        {% endfor %}
+    </div>
+{% endif %}

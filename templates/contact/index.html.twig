@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact — {{ parent() }}{% endblock %}
+
+{% block body %}
+    <section class="page-header">
+        <div class="container">
+            <h1>Contact</h1>
+            <p class="lead">Conférence, expertise, événement ou commandite : dites-nous en plus, nous vous répondrons rapidement.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container contact">
+            <div class="contact__form card">
+                {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+                    {{ form_widget(form) }}
+                    <button type="submit" class="button">Envoyer</button>
+                {{ form_end(form) }}
+            </div>
+            <aside class="contact__aside">
+                <h2>Nous pouvons vous aider pour…</h2>
+                <dl>
+                    <dt>Conférences</dt>
+                    <dd>Inviter un de nos conférenciers dans votre événement, entreprise ou école.</dd>
+                    <dt>Expertise</dt>
+                    <dd>Être accompagné par un membre du cercle de professionnels (audit, architecture, migration, formation).</dd>
+                    <dt>Événements</dt>
+                    <dd>Organiser, accueillir ou coorganiser un meetup Symfony dans votre ville.</dd>
+                </dl>
+                <p class="muted">Ou écrivez-nous directement : <a href="mailto:{{ contact_email }}">{{ contact_email }}</a></p>
+            </aside>
+        </div>
+    </section>
+{% endblock %}

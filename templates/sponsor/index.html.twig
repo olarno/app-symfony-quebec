@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commanditaires — {{ parent() }}{% endblock %}
+
+{% block body %}
+    <section class="page-header">
+        <div class="container">
+            <h1>Nos commanditaires</h1>
+            <p class="lead">Leur soutien rend possibles nos meetups, conférences et initiatives pour la communauté Symfony d'ici.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            {{ include('_partials/sponsor_groups.html.twig') }}
+        </div>
+    </section>
+
+    <section class="section section--alt" id="devenir-commanditaire">
+        <div class="container">
+            <h2>Devenir commanditaire</h2>
+            <p class="lead">
+                Associez votre entreprise à la communauté Symfony du Québec et du Canada :
+                visibilité auprès des développeurs, marque employeur et contribution concrète à l'écosystème.
+            </p>
+
+            <div class="grid grid--tiers">
+                {% for tier in tiers %}
+                    <article class="card tier tier--{{ tier.value }}">
+                        <h3>{{ tier.label }}</h3>
+                        <ul>
+                            {% if tier.value == 'platinum' %}
+                                <li>Logo en vedette sur le site et à chaque événement</li>
+                                <li>Prise de parole lors d'un meetup ou de la conférence</li>
+                                <li>Mise en avant sur la carte interactive</li>
+                                <li>Billets pour la conférence annuelle</li>
+                            {% elseif tier.value == 'gold' %}
+                                <li>Logo sur le site et aux événements</li>
+                                <li>Mention sur nos réseaux sociaux</li>
+                                <li>Mise en avant sur la carte interactive</li>
+                            {% elseif tier.value == 'silver' %}
+                                <li>Logo sur le site</li>
+                                <li>Mention lors des meetups</li>
+                            {% else %}
+                                <li>Accueil d'un meetup (salle, pizza, boissons)</li>
+                                <li>Ou soutien en nature (outils, licences, services)</li>
+                            {% endif %}
+                        </ul>
+                    </article>
+                {% endfor %}
+            </div>
+
+            <h3>Comment ça fonctionne?</h3>
+            <ol class="steps">
+                <li><strong>Écrivez-nous</strong> via le formulaire de contact en choisissant « Commandite ».</li>
+                <li><strong>Discutons</strong> de vos objectifs et du palier qui vous convient.</li>
+                <li><strong>Bienvenue!</strong> Votre logo est publié et nous planifions ensemble votre présence aux événements.</li>
+            </ol>
+            <a class="button" href="{{ path('app_contact', {sujet: 'commandite'}) }}">Devenir commanditaire</a>
+        </div>
+    </section>
+{% endblock %}

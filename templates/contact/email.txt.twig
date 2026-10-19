@@ -1,0 +1,8 @@
+Nouvelle demande via le formulaire de contact
+
+Sujet : {{ contact.subject.label }}
+Nom : {{ contact.name }}
+Courriel : {{ contact.email }}
+Organisation : {{ contact.organization ?: '—' }}
+
+{{ contact.message }}

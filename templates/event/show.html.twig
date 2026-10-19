@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ event.title }} — {{ parent() }}{% endblock %}
+{% block meta_description %}{{ event.description|length > 155 ? event.description|slice(0, 154) ~ '…' : event.description }}{% endblock %}
+
+{% block body %}
+    <section class="page-header">
+        <div class="container">
+            <p><a href="{{ path('app_event_index') }}">← Tous les événements</a></p>
+            <p class="tag tag--{{ event.type.value }}">{{ event.type.label }}</p>
+            <h1>{{ event.title }}</h1>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container event-detail">
+            <dl class="event-detail__meta card">
+                <dt>Date</dt>
+                <dd>{{ event.startsAt|format_datetime('full', 'short', locale: 'fr') }}</dd>
+                <dt>Lieu</dt>
+                <dd>{{ event.online ? 'En ligne' : event.city }}{% if event.venue %}<br><span class="muted">{{ event.venue }}</span>{% endif %}</dd>
+            </dl>
+            <div class="event-detail__body">
+                <p>{{ event.description|nl2br }}</p>
+                {% if event.upcoming %}
+                    {% if event.registrationUrl %}
+                        <a class="button" href="{{ event.registrationUrl }}" rel="noopener" target="_blank">S'inscrire</a>
+                    {% else %}
+                        <p class="muted">Les inscriptions ouvriront bientôt.</p>
+                    {% endif %}
+                {% else %}
+                    <p class="muted">Cet événement est terminé.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
