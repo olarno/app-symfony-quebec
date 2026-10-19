@@ -2,7 +2,10 @@
 
 namespace App\Enum;
 
-enum EventType: string
+use Symfony\Contracts\Translation\TranslatableInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
+enum EventType: string implements TranslatableInterface
 {
     case Meetup = 'meetup';
     case Conference = 'conference';
@@ -17,5 +20,10 @@ enum EventType: string
             self::Workshop => 'Atelier',
             self::ProCircle => 'Cercle de professionnels',
         };
+    }
+
+    public function trans(TranslatorInterface $translator, ?string $locale = null): string
+    {
+        return $translator->trans($this->label(), locale: $locale);
     }
 }

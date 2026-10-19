@@ -5,8 +5,8 @@
             {% for sponsor in group.sponsors %}
                 <li>
                     <a href="{{ sponsor.websiteUrl }}" rel="noopener sponsored" target="_blank" title="{{ sponsor.name }}">
-                        {% if sponsor.logoPath %}
-                            <img src="{{ sponsor.logoPath }}" alt="{{ sponsor.name }}">
+                        {% if sponsor.logo %}
+                            <img src="{{ asset('uploads/sponsors/' ~ sponsor.logo) }}" alt="{{ sponsor.name }}">
                         {% else %}
                             <span>{{ sponsor.name }}</span>
                         {% endif %}

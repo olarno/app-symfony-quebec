@@ -6,6 +6,7 @@ use App\Enum\SponsorTier;
 use App\Repository\SponsorRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SponsorRepository::class)]
 class Sponsor
@@ -16,29 +17,32 @@ class Sponsor
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private string $name;
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
+    private ?string $name = null;
 
     #[ORM\Column(enumType: SponsorTier::class)]
-    private SponsorTier $tier;
+    #[Assert\NotNull]
+    private ?SponsorTier $tier = null;
 
     #[ORM\Column(length: 255)]
-    private string $websiteUrl;
+    #[Assert\NotBlank]
+    #[Assert\Url(requireTld: true)]
+    private ?string $websiteUrl = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    /** Chemin public du logo (ex. /images/sponsors/acme.svg). */
+    /** Nom du fichier logo, dans public/uploads/sponsors/. */
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $logoPath = null;
+    private ?string $logo = null;
 
     #[ORM\Column]
     private int $position = 0;
 
-    public function __construct(string $name, SponsorTier $tier, string $websiteUrl)
+    public function __toString(): string
     {
-        $this->name = $name;
-        $this->tier = $tier;
-        $this->websiteUrl = $websiteUrl;
+        return (string) $this->name;
     }
 
     public function getId(): ?int
@@ -46,36 +50,36 @@ class Sponsor
         return $this->id;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(?string $name): static
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getTier(): SponsorTier
+    public function getTier(): ?SponsorTier
     {
         return $this->tier;
     }
 
-    public function setTier(SponsorTier $tier): static
+    public function setTier(?SponsorTier $tier): static
     {
         $this->tier = $tier;
 
         return $this;
     }
 
-    public function getWebsiteUrl(): string
+    public function getWebsiteUrl(): ?string
     {
         return $this->websiteUrl;
     }
 
-    public function setWebsiteUrl(string $websiteUrl): static
+    public function setWebsiteUrl(?string $websiteUrl): static
     {
         $this->websiteUrl = $websiteUrl;
 
@@ -94,14 +98,14 @@ class Sponsor
         return $this;
     }
 
-    public function getLogoPath(): ?string
+    public function getLogo(): ?string
     {
-        return $this->logoPath;
+        return $this->logo;
     }
 
-    public function setLogoPath(?string $logoPath): static
+    public function setLogo(?string $logo): static
     {
-        $this->logoPath = $logoPath;
+        $this->logo = $logo;
 
         return $this;
     }

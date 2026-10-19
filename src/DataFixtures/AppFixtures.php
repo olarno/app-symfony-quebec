@@ -37,8 +37,14 @@ class AppFixtures extends Fixture
         ];
 
         foreach ($events as [$title, $slug, $type, $offset, $city, $description]) {
-            $event = new Event($title, $slug, $type, $today->modify($offset), $city, $description);
-            $event->setOnline('En ligne' === $city);
+            $event = (new Event())
+                ->setTitle($title)
+                ->setSlug($slug)
+                ->setType($type)
+                ->setStartsAt($today->modify($offset))
+                ->setCity($city)
+                ->setDescription($description)
+                ->setOnline('En ligne' === $city);
             if (!$event->isOnline()) {
                 $event->setVenue('Lieu à confirmer');
             }
@@ -56,9 +62,12 @@ class AppFixtures extends Fixture
         ];
 
         foreach ($sponsors as $position => [$name, $tier, $url]) {
-            $sponsor = new Sponsor($name, $tier, $url);
-            $sponsor->setPosition($position);
-            $sponsor->setDescription('Description du commanditaire à compléter.');
+            $sponsor = (new Sponsor())
+                ->setName($name)
+                ->setTier($tier)
+                ->setWebsiteUrl($url)
+                ->setPosition($position)
+                ->setDescription('Description du commanditaire à compléter.');
             $manager->persist($sponsor);
         }
     }
@@ -73,10 +82,13 @@ class AppFixtures extends Fixture
         ];
 
         foreach ($members as $position => [$name, $role, $speaker]) {
-            $member = new TeamMember($name, $role, 'Courte biographie à compléter : parcours, expertise Symfony, sujets de prédilection.');
-            $member->setSpeaker($speaker);
-            $member->setPosition($position);
-            $member->setLinkedinUrl('https://www.linkedin.com/');
+            $member = (new TeamMember())
+                ->setName($name)
+                ->setRole($role)
+                ->setBio('Courte biographie à compléter : parcours, expertise Symfony, sujets de prédilection.')
+                ->setSpeaker($speaker)
+                ->setPosition($position)
+                ->setLinkedinUrl('https://www.linkedin.com/');
             $manager->persist($member);
         }
     }

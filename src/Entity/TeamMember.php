@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TeamMemberRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TeamMemberRepository::class)]
 class TeamMember
@@ -15,21 +16,29 @@ class TeamMember
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private string $name;
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
+    private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private string $role;
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
+    private ?string $role = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private string $bio;
+    #[Assert\NotBlank]
+    private ?string $bio = null;
+
+    /** Nom du fichier photo, dans public/uploads/team/. */
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photo = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $photoPath = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Url(requireTld: true)]
     private ?string $linkedinUrl = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Url(requireTld: true)]
     private ?string $githubUrl = null;
 
     /** Membre disponible comme conférencier. */
@@ -39,11 +48,9 @@ class TeamMember
     #[ORM\Column]
     private int $position = 0;
 
-    public function __construct(string $name, string $role, string $bio)
+    public function __toString(): string
     {
-        $this->name = $name;
-        $this->role = $role;
-        $this->bio = $bio;
+        return (string) $this->name;
     }
 
     public function getId(): ?int
@@ -51,50 +58,50 @@ class TeamMember
         return $this->id;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(?string $name): static
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getRole(): string
+    public function getRole(): ?string
     {
         return $this->role;
     }
 
-    public function setRole(string $role): static
+    public function setRole(?string $role): static
     {
         $this->role = $role;
 
         return $this;
     }
 
-    public function getBio(): string
+    public function getBio(): ?string
     {
         return $this->bio;
     }
 
-    public function setBio(string $bio): static
+    public function setBio(?string $bio): static
     {
         $this->bio = $bio;
 
         return $this;
     }
 
-    public function getPhotoPath(): ?string
+    public function getPhoto(): ?string
     {
-        return $this->photoPath;
+        return $this->photo;
     }
 
-    public function setPhotoPath(?string $photoPath): static
+    public function setPhoto(?string $photo): static
     {
-        $this->photoPath = $photoPath;
+        $this->photo = $photo;
 
         return $this;
     }
@@ -150,7 +157,7 @@ class TeamMember
     public function getInitials(): string
     {
         $initials = '';
-        foreach (preg_split('/[\s-]+/', $this->name, -1, \PREG_SPLIT_NO_EMPTY) as $part) {
+        foreach (preg_split('/[\s-]+/', (string) $this->name, -1, \PREG_SPLIT_NO_EMPTY) as $part) {
             $initials .= mb_strtoupper(mb_substr($part, 0, 1));
         }
 

@@ -2,7 +2,10 @@
 
 namespace App\Enum;
 
-enum ContactSubject: string
+use Symfony\Contracts\Translation\TranslatableInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
+enum ContactSubject: string implements TranslatableInterface
 {
     case Conference = 'conference';
     case Expertise = 'expertise';
@@ -19,5 +22,10 @@ enum ContactSubject: string
             self::Sponsorship => 'Commandite — devenir commanditaire',
             self::Other => 'Autre',
         };
+    }
+
+    public function trans(TranslatorInterface $translator, ?string $locale = null): string
+    {
+        return $translator->trans($this->label(), locale: $locale);
     }
 }

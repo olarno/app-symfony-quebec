@@ -2,9 +2,12 @@
 
 {% block body %}
     <section class="hero">
-        <div class="container">
+        <div class="hero__flag" aria-hidden="true">
+            {% for i in 1..4 %}{{ include('_partials/fleur.svg.twig', {class: 'hero__fleur hero__fleur--' ~ i}) }}{% endfor %}
+        </div>
+        <div class="container hero__content">
             <p class="eyebrow">Communauté Symfony · Québec &amp; Canada</p>
-            <h1>Faire grandir Symfony<br>au Québec et au Canada</h1>
+            <h1>Faire grandir Symfony<br>au <span class="accent">Québec</span> et au Canada</h1>
             <p class="lead">
                 Symfony Québec organise, facilite et promeut la présence de Symfony ici :
                 meetups, conférences, cercle de professionnels et mise en relation entre

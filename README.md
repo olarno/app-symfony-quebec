@@ -12,6 +12,8 @@ au Québec et au Canada : meetups, conférences, cercle de professionnels, etc.
 - Twig + AssetMapper (aucun build Node), Stimulus / Turbo
 - Doctrine ORM + SQLite (`var/data_<env>.db`)
 - Symfony Form, Validator, Mailer (formulaire de contact)
+- EasyAdmin 5 + SecurityBundle (back-office `/admin`)
+- Thème sombre maison (`assets/styles/app.css`) : bleu et fleur de lys du drapeau du Québec
 
 ## Pages
 
@@ -33,6 +35,25 @@ php bin/console doctrine:fixtures:load -n   # données d'exemple
 symfony serve                                # ou : php -S 127.0.0.1:8000 -t public
 ```
 
+## Back-office (`/admin`)
+
+Connexion sur `/connexion` (en dev : `admin` / `admin`). Permet de :
+
+- ajouter, modifier, supprimer des **événements** (le slug d'URL est généré depuis le titre) ;
+- ajouter, modifier, retirer des **commanditaires** (avec upload du logo) ;
+- ajouter, modifier, retirer des **membres de l'équipe** (avec upload de la photo).
+
+Les images sont stockées dans `public/uploads/` (non versionné : à conserver/sauvegarder sur le serveur).
+
+Un seul compte administrateur, défini par variables d'environnement. Pour la production :
+
+```bash
+php bin/console security:hash-password          # copier le hash obtenu
+php bin/console secrets:set ADMIN_PASSWORD_HASH --env=prod   # ou dans .env.local
+```
+
+Tant que `ADMIN_PASSWORD_HASH` est vide, personne ne peut se connecter.
+
 ## Configuration (`.env` / `.env.local`)
 
 | Variable | Rôle |
@@ -41,6 +62,7 @@ symfony serve                                # ou : php -S 127.0.0.1:8000 -t pub
 | `APP_CONTACT_EMAIL` | Adresse qui reçoit les demandes du formulaire de contact |
 | `MAILER_DSN` | Transport courriel (`null://null` par défaut ; `compose.yaml` fournit Mailpit en dev) |
 | `DATABASE_URL` | SQLite par défaut |
+| `ADMIN_USERNAME` / `ADMIN_PASSWORD_HASH` | Compte du back-office |
 
 ## Tests
 
@@ -52,7 +74,6 @@ La base de test est recréée et chargée avec les fixtures à chaque exécution
 
 ## Pistes pour la suite
 
-- Back-office (ex. EasyAdmin) pour gérer événements, commanditaires et équipe sans fixtures
+- Comptes admin individuels (entité `User`) si l'équipe grandit
 - Version anglaise (le site est prêt pour le composant Translation)
-- Logos des commanditaires et photos de l'équipe (`public/images/...`)
 - Inscription aux événements / infolettre, pages légales (Loi 25)

@@ -1,0 +1,22 @@
+/* Back-office : bleu du Québec sur le thème sombre d'EasyAdmin. */
+:root,
+.ea-dark-scheme {
+    --ea-primary: #0a4bd6;
+    --ea-radius: 0.5rem;
+}
+
+.ea-dark-scheme {
+    --body-bg: #070b14;
+    --sidebar-bg: #0d1320;
+}
+
+.sq-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.sq-stat { display: flex; flex-direction: column; padding: 1.25rem 1.5rem; border: 1px solid var(--border-color, #1f2b42); border-radius: .75rem; text-decoration: none; }
+.sq-stat:hover { border-color: var(--ea-primary); }
+.sq-stat__value { font-size: 2.25rem; font-weight: 800; line-height: 1.1; }
+.sq-stat__label { opacity: .75; }
+.sq-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2rem; }
+.sq-upcoming { padding-left: 1.1rem; }
+.sq-upcoming li { margin-bottom: .4rem; }
+
+body.page-login { background: #070b14; }

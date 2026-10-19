@@ -15,8 +15,8 @@
             <div class="grid grid--team">
                 {% for member in members %}
                     <article class="card member">
-                        {% if member.photoPath %}
-                            <img class="member__photo" src="{{ member.photoPath }}" alt="{{ member.name }}">
+                        {% if member.photo %}
+                            <img class="member__photo" src="{{ asset('uploads/team/' ~ member.photo) }}" alt="{{ member.name }}">
                         {% else %}
                             <span class="member__photo member__photo--initials" aria-hidden="true">{{ member.initials }}</span>
                         {% endif %}

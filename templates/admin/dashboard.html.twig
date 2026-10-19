@@ -1,0 +1,44 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title %}Tableau de bord{% endblock %}
+
+{% block main %}
+    <div class="sq-dashboard">
+        <div class="sq-stats">
+            <a class="sq-stat" href="{{ path('admin_event_index') }}">
+                <span class="sq-stat__value">{{ upcoming_events|length }}</span>
+                <span class="sq-stat__label">événement(s) à venir</span>
+            </a>
+            <a class="sq-stat" href="{{ path('admin_sponsor_index') }}">
+                <span class="sq-stat__value">{{ sponsor_count }}</span>
+                <span class="sq-stat__label">commanditaire(s)</span>
+            </a>
+            <a class="sq-stat" href="{{ path('admin_team_member_index') }}">
+                <span class="sq-stat__value">{{ member_count }}</span>
+                <span class="sq-stat__label">membre(s) de l'équipe</span>
+            </a>
+        </div>
+
+        <h2>Actions rapides</h2>
+        <p class="sq-actions">
+            <a class="btn btn-primary" href="{{ path('admin_event_new') }}"><i class="fa fa-plus"></i> Ajouter un événement</a>
+            <a class="btn btn-secondary" href="{{ path('admin_sponsor_new') }}"><i class="fa fa-plus"></i> Ajouter un commanditaire</a>
+            <a class="btn btn-secondary" href="{{ path('admin_team_member_new') }}"><i class="fa fa-plus"></i> Ajouter un membre</a>
+        </p>
+
+        <h2>Prochains événements</h2>
+        {% if upcoming_events is empty %}
+            <p class="text-muted">Aucun événement à venir.</p>
+        {% else %}
+            <ul class="sq-upcoming">
+                {% for event in upcoming_events %}
+                    <li>
+                        <strong>{{ event.startsAt|format_datetime('medium', 'short', locale: 'fr') }}</strong>
+                        — <a href="{{ path('admin_event_edit', {entityId: event.id}) }}">{{ event.title }}</a>
+                        <span class="text-muted">({{ event.online ? 'En ligne' : event.city }})</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

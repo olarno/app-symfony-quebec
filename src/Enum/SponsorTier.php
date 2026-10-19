@@ -2,7 +2,10 @@
 
 namespace App\Enum;
 
-enum SponsorTier: string
+use Symfony\Contracts\Translation\TranslatableInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
+enum SponsorTier: string implements TranslatableInterface
 {
     case Platinum = 'platinum';
     case Gold = 'gold';
@@ -17,5 +20,10 @@ enum SponsorTier: string
             self::Silver => 'Argent',
             self::Community => 'Partenaire communautaire',
         };
+    }
+
+    public function trans(TranslatorInterface $translator, ?string $locale = null): string
+    {
+        return $translator->trans($this->label(), locale: $locale);
     }
 }
